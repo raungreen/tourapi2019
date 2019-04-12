@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const pg_promise_1 = __importDefault(require("pg-promise"));
 exports.pgp = pg_promise_1.default();
 const dbConf = {
-    host: 'localhost',
+    host: '127.0.0.1',
     port: 5432,
-    database: 'tourdb',
-    user: 'tourdb_admin',
-    password: 'postgres'
+    database: 'toursdb',
+    user: 'postgres',
+    password: 'maurice'
 };
 exports.db = exports.pgp(dbConf);
