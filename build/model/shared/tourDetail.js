@@ -5,8 +5,8 @@ const reviews_1 = require("./reviews");
 class TourDetail extends tourSummary_1.TourSummary {
     constructor(tourData, reviewData, tourImages) {
         super(tourData);
-        this.tourCategory = tourData.tourCategory;
-        this.tourDescription = tourData.tourDescription;
+        this.tourCategory = tourData.tour_category;
+        this.tourDescription = tourData.tour_description;
         this.price = tourData.price;
         this.currency = tourData.currency;
         this.img = tourImages;

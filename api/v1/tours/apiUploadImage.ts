@@ -1,22 +1,20 @@
-import { DataStore } from '../../../data/data';
 import { RequestHandler } from 'express';
 import { getFileUploader } from '../general/static';
+import { PublicInfo, APIError } from '../../../model/shared/messages';
+import { db } from '../../../db/db';
 
 export const apiUploadImage: RequestHandler = (req, res, next) => {
   const tourID = req.params.id;
-  const tourIndex = DataStore.tours.findIndex((item: any) => item.id == tourID);
-  if (tourIndex == -1) {
-    res.json({ status: 'error', message: 'Tour not found' });
-  } else {
-    const upload = getFileUploader(req.app.get('env'));
-    upload(req, res, err => {
-      if (err) {
-        console.log(err);
-        res.json({ status: 'error', message: 'File upload failed.' });
-      } else {
-        DataStore.tours[tourIndex].img.push(req.file.filename);
-        res.json({ status: 'success', message: 'File uploaded.' });
-      }
-    });
-  }
+  const upload = getFileUploader(req.app.get('env'));
+  upload(req, res, err => {
+    if (err) {
+      console.log(err);
+      next(APIError.errServerError());
+    } else {
+      const sql = 'update tours set img = array_append(img, $1) where id = $2';
+      db.none(sql, [req.file.filename, tourID]).then(() => {
+        res.json(PublicInfo.infoCreated({ uploadedFile: req.file.filename }));
+      });
+    }
+  });
 };
