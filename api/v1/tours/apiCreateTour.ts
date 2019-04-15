@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import uuid from 'uuid/v4';
-import { DataStore } from '../../../data/data';
 import { APIError, PublicInfo } from '../../../model/shared/messages';
+import { db, pgp } from '../../../db/db';
 
 export const apiCreateTour: RequestHandler = (req, res, next) => {
   const requiredFields = ['tourTitle', 'location'];
@@ -14,13 +14,14 @@ export const apiCreateTour: RequestHandler = (req, res, next) => {
   const newTour = {
     id: uuid(),
     location: req.body.location || '',
-    tourTitle: req.body.tourTitle || '',
-    tourCategory: req.body.tourCategory || '',
-    tourDescription: req.body.tourDescription || '',
+    tour_title: req.body.tourTitle || '',
+    tour_category: req.body.tourCategory || '',
+    tour_description: req.body.tourDescription || '',
     price: req.body.price || 0,
     currency: req.body.currency || '',
     img: []
   };
-  DataStore.tours.push(newTour);
-  res.send(new PublicInfo('Tour added!', 200, { tour: newTour }));
+  db.none(pgp.helpers.insert(newTour, undefined, 'tours')).then(() => {
+    res.json(PublicInfo.infoCreated({ newTour: newTour }));
+  });
 };
