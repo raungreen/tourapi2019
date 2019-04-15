@@ -4,12 +4,8 @@ import { APIError, PublicInfo } from '../../../model/shared/messages';
 import { db, pgp } from '../../../db/db';
 
 export const apiCreateTour: RequestHandler = (req, res, next) => {
-  const requiredFields = ['tourTitle', 'location'];
-  const givenFields = Object.getOwnPropertyNames(req.body);
-  if (!requiredFields.every(field => givenFields.includes(field))) {
-    return next(
-      new APIError('Data missing', 'Not all required fields supplied.', 400)
-    );
+  if (!req.body) {
+    next(APIError.errMissingBody());
   }
   const newTour = {
     id: uuid(),

@@ -15,3 +15,9 @@ const dbConf = {
     password: 'maurice'
 };
 exports.db = exports.pgp(dbConf);
+// Setup for MongoDb below.  Uncomment above to run Postgres
+const mongoose_1 = __importDefault(require("mongoose"));
+function connectMongo() {
+    mongoose_1.default.connect('mongodb+srv://toudb_admin:maurice@tourapi-tmwlz.mongodb.net/test?retryWrites=true');
+}
+exports.connectMongo = connectMongo;

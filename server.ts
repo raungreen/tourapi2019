@@ -1,6 +1,9 @@
 import express from 'express';
 import { routerV1 } from './api/v1';
+// import { connectMongo } from './db/db';
 const app = express();
+
+// connectMongo();
 
 app.disable('x-powered-by');
 
