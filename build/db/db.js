@@ -8,7 +8,7 @@ exports.pgp = pg_promise_1.default();
 const dbConf = {
     host: '127.0.0.1',
     port: 5432,
-    database: 'toursdb',
+    database: 'tourdb',
     user: 'postgres',
     password: 'maurice'
 };
