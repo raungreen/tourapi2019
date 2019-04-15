@@ -5,11 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const messages_1 = require("../../../model/shared/messages");
+const config_1 = require("../../../config");
 exports.apiDownloadImage = (req, res, next) => {
-    const fileID = req.params.id;
-    res.download(path_1.default.resolve('./', 'public', 'img', fileID), err => {
+    const imageID = req.params.id;
+    res.download(path_1.default.join(config_1.__root, 'public', 'img', imageID), err => {
         if (err) {
-            next(new messages_1.APIError('Download failed.', 'Cannot download requested file.', 400));
+            next(messages_1.APIError.errServerError());
         }
     });
 };

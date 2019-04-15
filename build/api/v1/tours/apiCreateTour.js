@@ -7,10 +7,8 @@ const v4_1 = __importDefault(require("uuid/v4"));
 const messages_1 = require("../../../model/shared/messages");
 const db_1 = require("../../../db/db");
 exports.apiCreateTour = (req, res, next) => {
-    const requiredFields = ['tourTitle', 'location'];
-    const givenFields = Object.getOwnPropertyNames(req.body);
-    if (!requiredFields.every(field => givenFields.includes(field))) {
-        return next(new messages_1.APIError('Data missing', 'Not all required fields supplied.', 400));
+    if (!req.body) {
+        next(messages_1.APIError.errMissingBody());
     }
     const newTour = {
         id: v4_1.default(),

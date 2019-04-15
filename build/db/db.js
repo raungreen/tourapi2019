@@ -7,7 +7,10 @@ const pg_promise_1 = __importDefault(require("pg-promise"));
 exports.pgp = pg_promise_1.default();
 const dbConf = {
     host: '127.0.0.1',
+<<<<<<< HEAD
     // Use port 5432 for work; port 5433 for personal laptop
+=======
+>>>>>>> 953415656144e4c155e4d565c4939c0510415af1
     port: 5432,
     // port: 5433,
     database: 'tourdb',
@@ -15,3 +18,9 @@ const dbConf = {
     password: 'maurice'
 };
 exports.db = exports.pgp(dbConf);
+// Setup for MongoDb below.  Uncomment above to run Postgres
+const mongoose_1 = __importDefault(require("mongoose"));
+function connectMongo() {
+    mongoose_1.default.connect('mongodb+srv://toudb_admin:maurice@tourapi-tmwlz.mongodb.net/test?retryWrites=true');
+}
+exports.connectMongo = connectMongo;
