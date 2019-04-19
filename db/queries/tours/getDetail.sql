@@ -1,2 +1,3 @@
-select from tours
+select *
+from tours
 where id = ${id}
