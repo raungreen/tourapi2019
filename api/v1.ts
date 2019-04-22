@@ -8,6 +8,8 @@ import { userRouter } from './v1/users/apiUsers';
 import { toursRouter } from './v1/tours/apiTours';
 import { apiDownloadImage } from './v1/tours/apiDownloadImage';
 import { apiErrorHandler } from './v1/general/errorHandling';
+import { urlEncodedParser } from './v1/general/bodyParser';
+import { apiTokenSignin } from './v1/auth/tokenSignin';
 
 export let routerV1 = Router();
 
@@ -26,6 +28,8 @@ routerV1.get('/', (req, res, next) => {
 routerV1.use('/users', userRouter);
 
 routerV1.use('/tours', toursRouter);
+
+routerV1.post('/tokensignin', urlEncodedParser, apiTokenSignin);
 
 routerV1.get('/static/download/:id', apiDownloadImage);
 

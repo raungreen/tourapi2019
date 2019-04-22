@@ -1,3 +1,2 @@
-select *
-from tours
+select * from tours
 where ${searchCondition:raw}

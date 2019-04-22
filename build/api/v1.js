@@ -13,6 +13,8 @@ const apiUsers_1 = require("./v1/users/apiUsers");
 const apiTours_1 = require("./v1/tours/apiTours");
 const apiDownloadImage_1 = require("./v1/tours/apiDownloadImage");
 const errorHandling_1 = require("./v1/general/errorHandling");
+const bodyParser_1 = require("./v1/general/bodyParser");
+const tokenSignin_1 = require("./v1/auth/tokenSignin");
 exports.routerV1 = express_1.Router();
 exports.routerV1.use(logging_1.logger);
 exports.routerV1.use(cors_1.apiCors);
@@ -23,5 +25,6 @@ exports.routerV1.get('/', (req, res, next) => {
 });
 exports.routerV1.use('/users', apiUsers_1.userRouter);
 exports.routerV1.use('/tours', apiTours_1.toursRouter);
+exports.routerV1.post('/tokensignin', bodyParser_1.urlEncodedParser, tokenSignin_1.apiTokenSignin);
 exports.routerV1.get('/static/download/:id', apiDownloadImage_1.apiDownloadImage);
 exports.routerV1.use(errorHandling_1.apiErrorHandler);
