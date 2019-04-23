@@ -5,7 +5,10 @@ import { tours } from '../../../db/queries/sql';
 
 export const apiDeleteTour: RequestHandler = (req, res, next) => {
   const tourID = req.params.id;
-  db.none(tours.delete, { id: tourID }).then(() => {
+  // db.none(tours.delete, { id: tourID }).then(() => {
+  //   res.json(PublicInfo.infoDeleted());
+  // })
+  db.none("delete from tours where id = '" + tourID + "'").then(() => {
     res.json(PublicInfo.infoDeleted());
   });
 };

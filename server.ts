@@ -1,5 +1,5 @@
 import express from 'express';
-import { routerV1 } from './api/v1';
+import { routerV1 } from './api/v1/v1';
 import * as path from 'path';
 import { __root } from './config';
 // import { connectMongo } from './db/db';

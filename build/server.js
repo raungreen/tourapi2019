@@ -11,7 +11,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const v1_1 = require("./api/v1");
+const v1_1 = require("./api/v1/v1");
 const path = __importStar(require("path"));
 const config_1 = require("./config");
 // import { connectMongo } from './db/db';

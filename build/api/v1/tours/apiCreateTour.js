@@ -10,6 +10,9 @@ exports.apiCreateTour = (req, res, next) => {
     if (!req.body) {
         next(messages_1.APIError.errMissingBody());
     }
+    if (!req.user) {
+        next(messages_1.APIError.errUnauthorized());
+    }
     const newTour = {
         id: v4_1.default(),
         location: req.body.location || '',
@@ -18,7 +21,8 @@ exports.apiCreateTour = (req, res, next) => {
         tour_description: req.body.tourDescription || '',
         price: req.body.price || 0,
         currency: req.body.currency || '',
-        img: []
+        img: [],
+        user_id: req.user.id
     };
     db_1.db.none(db_1.pgp.helpers.insert(newTour, undefined, 'tours')).then(() => {
         res.json(messages_1.PublicInfo.infoCreated({ newTour: newTour }));
