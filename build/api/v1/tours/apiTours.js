@@ -9,10 +9,11 @@ const apiDeleteTour_1 = require("./apiDeleteTour");
 const apiUpdateTour_1 = require("./apiUpdateTour");
 const apiUploadImage_1 = require("./apiUploadImage");
 const bodyParser_1 = require("../general/bodyParser");
+const catching_1 = require("../general/catching");
 exports.toursRouter = express_1.Router();
 exports.toursRouter
     .route('/')
-    .get(apiCheckToursFilters_1.apiCheckTourFilters, apiGetTours_1.apiGetTours)
+    .get(catching_1.cacheCheck, apiCheckToursFilters_1.apiCheckTourFilters, apiGetTours_1.apiGetTours)
     .post(bodyParser_1.jsonParser, apiCreateTour_1.apiCreateTour);
 exports.toursRouter
     .route('/:id')

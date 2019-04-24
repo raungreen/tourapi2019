@@ -7,12 +7,13 @@ import { apiDeleteTour } from './apiDeleteTour';
 import { apiUpdateTour } from './apiUpdateTour';
 import { apiUploadImage } from './apiUploadImage';
 import { jsonParser } from '../general/bodyParser';
+import { cacheCheck } from '../general/catching';
 
 export let toursRouter = Router();
 
 toursRouter
   .route('/')
-  .get(apiCheckTourFilters, apiGetTours)
+  .get(cacheCheck, apiCheckTourFilters, apiGetTours)
   .post(jsonParser, apiCreateTour);
 
 toursRouter

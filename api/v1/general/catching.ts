@@ -1,6 +1,16 @@
-import {RequestHandler} from "express";
-import { cache } from "../../../cache/cache";
+import { RequestHandler } from 'express';
+import { cache } from '../../../cache/cache';
 
-export const cacheCheck: RequestHandler = {req, res, next}=>{
-  cache.get()
+export const cacheCheck: RequestHandler = (req, res, next) => {
+  cache.get(req.originalUrl, (err: any, data: undefined) => {
+    if (!err && data != undefined) {
+      res.json(data);
+    } else next();
+  });
 };
+
+export function cacheSave(data: any): RequestHandler {
+  return (req, res, next) => {
+    cache.set(req.originalUrl, data);
+  };
+}
